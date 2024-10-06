@@ -167,6 +167,7 @@ const Home = ({ setActive, user, active }) => {
         setLoading(true);
         await deleteDoc(doc(db, "blogs", id));
         toast.success("Blog deleted successfully");
+        setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog.id !== id));
         setLoading(false);
       } catch (err) {
         console.log(err);
