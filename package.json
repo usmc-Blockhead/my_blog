@@ -1,5 +1,6 @@
 {
   "name": "firebase-my-blog",
+  "homepage": "https://fir-blog-ab578.web.app/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
