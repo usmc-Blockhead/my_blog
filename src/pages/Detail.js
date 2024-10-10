@@ -66,23 +66,33 @@ const Detail = ({ setActive, user }) => {
     const docRef = doc(db, "blogs", id);
     const blogDetail = await getDoc(docRef);
     const blogs = await getDocs(blogRef);
+  
     let tags = [];
     blogs.docs.map((doc) => tags.push(...doc.get("tags")));
     let uniqueTags = [...new Set(tags)];
     setTags(uniqueTags);
     setBlog(blogDetail.data());
-    const relatedBlogsQuery = query(
-      blogRef,
-      where("tags", "array-contains-any", blogDetail.data().tags, limit(3))
-    );
+  
+    // Check if blogDetail has tags and they are not empty
+    if (blogDetail.data().tags && blogDetail.data().tags.length > 0) {
+      const relatedBlogsQuery = query(
+        blogRef,
+        where("tags", "array-contains-any", blogDetail.data().tags),
+        limit(3)
+      );
+  
+      const relatedBlogSnapshot = await getDocs(relatedBlogsQuery);
+      const relatedBlogs = [];
+      relatedBlogSnapshot.forEach((doc) => {
+        relatedBlogs.push({ id: doc.id, ...doc.data() });
+      });
+      setRelatedBlogs(relatedBlogs);
+    } else {
+      setRelatedBlogs([]);
+    }
+  
     setComments(blogDetail.data().comments ? blogDetail.data().comments : []);
     setLikes(blogDetail.data().likes ? blogDetail.data().likes : []);
-    const relatedBlogSnapshot = await getDocs(relatedBlogsQuery);
-    const relatedBlogs = [];
-    relatedBlogSnapshot.forEach((doc) => {
-      relatedBlogs.push({ id: doc.id, ...doc.data() });
-    });
-    setRelatedBlogs(relatedBlogs);
     setActive(null);
     setLoading(false);
   };
