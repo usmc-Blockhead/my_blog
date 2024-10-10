@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "my-blog-952dc"
-  }
+    "default": "fir-blog-ab578"
+  },
+  "targets": {},
+  "etags": {}
 }
