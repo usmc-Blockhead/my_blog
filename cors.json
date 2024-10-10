@@ -1,0 +1,14 @@
+[
+    {
+        "origin": [
+            "https://fir-blog-ab578.web.app"
+        ],
+        "method": [
+            "GET"
+        ],
+        "maxAgeSeconds": 3600,
+        "responseHeader": [
+            "Content-Type"
+        ]
+    }
+]
