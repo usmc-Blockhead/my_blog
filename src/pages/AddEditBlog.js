@@ -12,15 +12,18 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
+import { Editor } from "primereact/editor";
+import "primereact/resources/themes/saga-blue/theme.css"; // PrimeReact theme
+import "primereact/resources/primereact.min.css"; // PrimeReact CSS
 
 const initialState = {
   title: "",
   tags: [],
   trending: "no",
   category: "",
-  description: "",
+  description: "", // Will store HTML content
   comments: [],
-  likes: []
+  likes: [],
 };
 
 const categoryOption = [
@@ -38,7 +41,6 @@ const AddEditBlog = ({ user, setActive }) => {
   const [progress, setProgress] = useState(null);
 
   const { id } = useParams();
-
   const navigate = useNavigate();
 
   const { title, tags, category, trending, description } = form;
@@ -52,7 +54,6 @@ const AddEditBlog = ({ user, setActive }) => {
         (snapshot) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log("Upload is " + progress + "% done");
           setProgress(progress);
           switch (snapshot.state) {
             case "paused":
@@ -70,7 +71,7 @@ const AddEditBlog = ({ user, setActive }) => {
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
-            toast.info("Image upload to firebase successfully");
+            toast.info("Image uploaded to Firebase successfully");
             setForm((prev) => ({ ...prev, imgUrl: downloadUrl }));
           });
         }
@@ -108,6 +109,11 @@ const AddEditBlog = ({ user, setActive }) => {
 
   const onCategoryChange = (e) => {
     setForm({ ...form, category: e.target.value });
+  };
+
+  // Function to handle description changes in HTML
+  const handleDescriptionChange = (e) => {
+    setForm({ ...form, description: e.htmlValue }); // Save the HTML content
   };
 
   const handleSubmit = async (e) => {
@@ -215,12 +221,11 @@ const AddEditBlog = ({ user, setActive }) => {
                 </select>
               </div>
               <div className="col-12 py-3">
-                <textarea
-                  className="form-control description-box"
-                  placeholder="Description"
+                <Editor
+                  style={{ height: '200px' }}
                   value={description}
-                  name="description"
-                  onChange={handleChange}
+                  onTextChange={handleDescriptionChange}
+                  placeholder="Write your blog description here..."
                 />
               </div>
               <div className="mb-3">

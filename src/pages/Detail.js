@@ -1,3 +1,6 @@
+import React, { useState, useEffect, useCallback } from "react";
+import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
   collection,
   doc,
@@ -12,9 +15,7 @@ import {
   where,
 } from "firebase/firestore";
 import { isEmpty } from "lodash";
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { toast } from "react-toastify";
+import DOMPurify from "dompurify"; // Import DOMPurify to sanitize HTML
 import CommentBox from "../components/CommentBox";
 import Like from "../components/Like";
 import FeatureBlogs from "../components/FeatureBlogs";
@@ -36,51 +37,27 @@ const Detail = ({ setActive, user }) => {
   const [userComment, setUserComment] = useState("");
   const [relatedBlogs, setRelatedBlogs] = useState([]);
 
-  useEffect(() => {
-    const getRecentBlogs = async () => {
-      const blogRef = collection(db, "blogs");
-      const recentBlogs = query(
-        blogRef,
-        orderBy("timestamp", "desc"),
-        limit(5)
-      );
-      const docSnapshot = await getDocs(recentBlogs);
-      setBlogs(docSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-    };
-
-    getRecentBlogs();
-  }, []);
-
-  useEffect(() => {
-    id && getBlogDetail();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
-
-  if (loading) {
-    return <Spinner />;
-  }
-
-  const getBlogDetail = async () => {
+  // Define getBlogDetail at the top, before any conditional returns
+  const getBlogDetail = useCallback(async () => {
     setLoading(true);
     const blogRef = collection(db, "blogs");
     const docRef = doc(db, "blogs", id);
     const blogDetail = await getDoc(docRef);
     const blogs = await getDocs(blogRef);
-  
+
     let tags = [];
     blogs.docs.map((doc) => tags.push(...doc.get("tags")));
     let uniqueTags = [...new Set(tags)];
     setTags(uniqueTags);
     setBlog(blogDetail.data());
-  
-    // Check if blogDetail has tags and they are not empty
+
     if (blogDetail.data().tags && blogDetail.data().tags.length > 0) {
       const relatedBlogsQuery = query(
         blogRef,
         where("tags", "array-contains-any", blogDetail.data().tags),
         limit(3)
       );
-  
+
       const relatedBlogSnapshot = await getDocs(relatedBlogsQuery);
       const relatedBlogs = [];
       relatedBlogSnapshot.forEach((doc) => {
@@ -90,12 +67,33 @@ const Detail = ({ setActive, user }) => {
     } else {
       setRelatedBlogs([]);
     }
-  
+
     setComments(blogDetail.data().comments ? blogDetail.data().comments : []);
     setLikes(blogDetail.data().likes ? blogDetail.data().likes : []);
     setActive(null);
     setLoading(false);
-  };
+  }, [id, setActive]);
+
+  useEffect(() => {
+    const getRecentBlogs = async () => {
+      const blogRef = collection(db, "blogs");
+      const recentBlogs = query(blogRef, orderBy("timestamp", "desc"), limit(5));
+      const docSnapshot = await getDocs(recentBlogs);
+      setBlogs(docSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+    };
+
+    getRecentBlogs();
+  }, []);
+
+  useEffect(() => {
+    if (id) {
+      getBlogDetail();
+    }
+  }, [id, getBlogDetail]);
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   const handleComment = async (e) => {
     e.preventDefault();
@@ -135,7 +133,6 @@ const Detail = ({ setActive, user }) => {
     }
   };
 
-  console.log("relatedBlogs", relatedBlogs);
   return (
     <div className="single">
       <div
@@ -157,7 +154,12 @@ const Detail = ({ setActive, user }) => {
                 {blog?.timestamp.toDate().toDateString()}
                 <Like handleLike={handleLike} likes={likes} userId={userId} />
               </span>
-              <p className="text-start">{blog?.description}</p>
+              <div
+                className="text-start"
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(blog?.description),
+                }}
+              />
               <div className="text-start">
                 <Tags tags={blog?.tags} />
               </div>
