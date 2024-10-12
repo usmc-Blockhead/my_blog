@@ -7,7 +7,7 @@ const Header = ({ active, setActive, user, handleLogout }) => {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid bg-faded padding-media">
-            <div className="container padding-media">
+            <div className="container-fluid padding-media">
             <nav className="navbar navbar-toggleable-md navbar-light">
                 <button
                 className="navbar-toggler mt-3"

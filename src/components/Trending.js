@@ -31,7 +31,10 @@ const Trending = ({ blogs }) => {
         responsive={responsive}
         infinite={true}
         autoPlay={true}
-        autoPlaySpeed={2000}
+        autoPlaySpeed={5000}
+        swipeable={false}
+        draggable={true}
+        showDots={true}
         removeArrowOnDeviceType={["tablet", "mobile"]}
       >
         {blogs?.map((item) => (

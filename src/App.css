@@ -1,10 +1,17 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.container-fluid {
+  flex: 1; /* Ensures the container takes the available space */
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -13,16 +20,22 @@
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.navbar {
+  position: sticky;
+  top: 0;
+  background-color: #efd4ed;
+  height: auto; /* Remove min-height */
+  width: 100%;
+  padding: 10px 0; /* Add some padding for spacing */
   display: flex;
-  flex-direction: column;
+  flex-direction: row; /* Adjust for a typical header layout */
   align-items: center;
-  justify-content: center;
+  justify-content: space-between; /* For distributing content in the header */
   font-size: calc(10px + 2vmin);
   color: white;
+  z-index: 1000; /* Ensure it stays above other elements */
 }
+
 
 .App-link {
   color: #61dafb;
@@ -35,4 +48,14 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.Footer {
+  text-align: center;
+  padding: 10px 0;
+  background-color: #efd4ed;
+  width: 100%;
+  position: relative; /* Default position */
+  bottom: 0; /* Ensure it stays at the bottom */
+  flex-shrink: 0; /* Prevent shrinking when content overflows */
 }
