@@ -1,10 +1,10 @@
 import React from "react";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 function Footer() {
     return (
         <div className="Footer">
-            <i class="bi bi-c-circle"></i>
-            <p>TabbyTech Solutions 2024</p>
+            <i class="bi bi-c-circle">TabbyTech Solutions 2024</i>
         </div>
     );
 }

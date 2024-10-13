@@ -2,7 +2,7 @@ import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
-const Trending = ({ blogs }) => {
+const Trending = ({ blogs, deviceType }) => {
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 1024 },
@@ -28,14 +28,21 @@ const Trending = ({ blogs }) => {
         <div className="blog-heading text-start py-2 mb-4">Trending</div>
       </div>
       <Carousel
-        responsive={responsive}
-        infinite={true}
-        autoPlay={true}
-        autoPlaySpeed={5000}
         swipeable={false}
-        draggable={true}
+        draggable={false}
         showDots={true}
+        responsive={responsive}
+        ssr={true} // means to render carousel on server-side.
+        infinite={true}
+        autoPlay={deviceType !== "mobile" ? true : false}
+        autoPlaySpeed={4000}
+        keyBoardControl={true}
+        customTransition="all .5"
+        transitionDuration={500}
+        containerClass="carousel-container"
         removeArrowOnDeviceType={["tablet", "mobile"]}
+        dotListClass="custom-dot-list-style"
+        itemClass="carousel-item-padding-40-px"
       >
         {blogs?.map((item) => (
           <div className="item px-2" key={item.id}>
