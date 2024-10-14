@@ -23,6 +23,7 @@ import { isEmpty, isNull } from "lodash";
 import { useLocation } from "react-router-dom";
 import Category from "../components/Category";
 import Footer from "../components/Footer";
+import '../../src/style.scss';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -231,7 +232,11 @@ const Home = ({ setActive, user, active }) => {
             ))}
 
             {!hide && (
-              <button className="btn btn-primary" onClick={fetchMore}>
+              <button 
+              className="btn"
+              onClick={fetchMore}
+              style={{ backgroundColor: '#544e66', borderColor: '#544e66', color: '#ffffff' }}
+              >
                 Load More
               </button>
             )}

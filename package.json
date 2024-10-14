@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@jridgewell/sourcemap-codec": "^1.5.0",
     "@pathofdev/react-tag-input": "^1.0.7",
     "@popperjs/core": "^2.11.8",

@@ -112,7 +112,7 @@ $yellow:#ef49e9;
 }
 
 .btn-sign-in {
-    background: #c43421!important;
+    background: #ef49e9!important;
     @include border-radius(0!important);
 	color: #fff!important;
 	padding: 10px 50px!important;
@@ -120,7 +120,7 @@ $yellow:#ef49e9;
 }
 
 .btn-sign-up {
-    background: #4287f5!important;
+    background: #ef49e9!important;
     @include border-radius(0!important);
 	color: #fff!important;
 	padding: 10px 50px!important;
@@ -140,7 +140,7 @@ $yellow:#ef49e9;
 }
 
 .btn-add {
-    background: #bf7034 !important;
+    background: #ef49e9 !important;
 	@include border-radius(0!important);
 	color: #fff!important;
 	padding: 10px 50px!important;
@@ -215,7 +215,7 @@ $yellow:#ef49e9;
 .category {
     display: inline-block;
     position: relative;
-    background-color: #4287f5;
+    background-color: #ef49e9;
     padding: 4px 8px;
     color: #fff;
     text-decoration: none;
@@ -227,11 +227,11 @@ $yellow:#ef49e9;
 }
 
 .fa-trash {
-	color: #c43421 !important;
+	color: #ef49e9 !important;
 }
 
 .fa-edit {
-	color: lightsalmon !important;
+	color: #ef49e9 !important;
 }
 
 .meta-info {

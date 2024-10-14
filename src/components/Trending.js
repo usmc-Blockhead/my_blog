@@ -32,16 +32,12 @@ const Trending = ({ blogs, deviceType }) => {
         draggable={false}
         showDots={true}
         responsive={responsive}
-        ssr={true} // means to render carousel on server-side.
         infinite={true}
-        autoPlay={deviceType !== "mobile" ? true : false}
+        autoPlay={true}
         autoPlaySpeed={4000}
         keyBoardControl={true}
-        customTransition="all .5"
-        transitionDuration={500}
         containerClass="carousel-container"
         removeArrowOnDeviceType={["tablet", "mobile"]}
-        dotListClass="custom-dot-list-style"
         itemClass="carousel-item-padding-40-px"
       >
         {blogs?.map((item) => (
