@@ -46,10 +46,12 @@ const BlogSection = ({
                 <div className="col-md-5">
                     <div className="hover-blogs-img">
                         <div className="blogs-img">
+                            <Link to={`/detail/${id}`}>
                             <img
                                 src={imgUrl}
                                 alt={title}
                             />
+                            </Link>
                             <div></div>
                         </div>
                     </div>
