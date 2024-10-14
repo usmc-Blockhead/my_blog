@@ -1,6 +1,7 @@
 import React from "react";
 import FontAwesome from "react-fontawesome";
 import { Link } from "react-router-dom";
+import '../../src/style.scss';
 import DOMPurify from "dompurify"; // Import DOMPurify to sanitize HTML
 
 // Helper function to extract a safe HTML excerpt
