@@ -181,26 +181,29 @@ $yellow:#ef49e9;
 	color: #222;
     border-bottom: 1px solid #777;
 }
-
 .blogs-img {
     height: 200px;
-	@include border-radius(5px);
-	overflow: hidden;
-	position: relative;
-	top: 0;
-	@include box-shadow(0, 2px, 3px, 1px, rgba(0,0,0,0));
-	@include transition(all 0.5s);
+    width: 100%;
+    @include border-radius(5px);
+    overflow: hidden;
+    position: relative;
+    top: 0;
+    @include box-shadow(0, 2px, 3px, 1px, rgba(0,0,0,0));
+    @include transition(all 0.5s);
 }
 
 .blogs-img > img {
-    height: 260px;
-	min-width: 100%;
+    width: 100%;
+    height: auto; /* Maintain the aspect ratio */
+    object-fit:contain; /* Ensures the entire image fits without cropping */
+	max-height: 300px; 
 }
 
 .hover-blogs-img:hover > .blogs-img {
     top: -7px;
-	@include box-shadow(0, 2px, 3px, 1px, rgba(0,0,0,0.3));
+    @include box-shadow(0, 2px, 3px, 1px, rgba(0,0,0,0.3));
 }
+
 
 .title {
     font-size: 17px;
