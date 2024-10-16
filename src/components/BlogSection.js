@@ -43,20 +43,21 @@ const BlogSection = ({
             <div
                 className="row pb-4"
                 key={id}>
-                <div className="col-md-5">
+                <div className="col-md-4">
                     <div className="hover-blogs-img">
                         <div className="blogs-img">
                             <Link to={`/detail/${id}`}>
                             <img
                                 src={imgUrl}
                                 alt={title}
+                                style={{ height: '200px', width: '100%', objectFit: 'cover' }}
+
                             />
                             </Link>
-                            <div></div>
                         </div>
                     </div>
                 </div>
-                <div className="col-md-7">
+                <div className="col-md-8">
                     <div className="text-start">
                         <h6 className="category catg-color">{category}</h6>
                         <span className="title py-2">{title}</span>
@@ -69,8 +70,8 @@ const BlogSection = ({
                         className="short-description text-start"
                         dangerouslySetInnerHTML={{
                             __html: DOMPurify.sanitize(
-                                getHtmlExcerpt(description, 150)
-                            ), // Limit to 150 characters
+                                getHtmlExcerpt(description, 300)
+                            ), // Limit to 300 characters
                         }}></div>
                     <Link to={`/detail/${id}`}>
                         <button className="btn btn-read">Read More</button>

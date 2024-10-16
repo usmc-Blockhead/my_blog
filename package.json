@@ -17,6 +17,7 @@
     "carousel-grid": "^1.0.7",
     "dompurify": "^3.1.7",
     "firebase": "^10.3.0",
+    "jimp": "^1.6.0",
     "lodash": "^4.17.21",
     "nodemon": "^3.0.1",
     "primereact": "^10.8.4",
